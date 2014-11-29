@@ -1,0 +1,65 @@
+//C#...
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace hackerrank_ProjectEuler_
+{
+    class Program
+    {
+        static bool primes(long num)
+        {
+            for (long i = 2; i <=Convert.ToInt64(Math.Sqrt(num)); i++)
+            {
+                if (num % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        static void Main(string[] args)
+        {
+            
+            int t = Convert.ToInt32(Console.ReadLine());
+            long[] no = new long[t];
+            long[] copy = new long[t];
+            long[] ans;
+            for (int i = 0; i < t; i++)
+            {
+                no[i] = Convert.ToInt64(Console.ReadLine());
+                copy[i] = no[i];
+            }
+            Array.Sort(copy);
+            long max = copy[t - 1];
+            ans = new long[max];
+
+            ans[0] = 2; ans[1] = 3;
+            ans[2] = 5; ans[3] = 7;
+
+            long k = 3;
+            for (int i = 9; ; i += 2)
+            {
+                if (i %10 == 0)
+                {
+                    continue;
+                }
+                if (primes(i))
+                {
+                    ans[++k] = i;
+                    if (k == (max - 1))
+                        break;
+                }
+            }
+
+            for (int i = 0; i < t; i++)
+            {
+                long temp = no[i]-1;
+                Console.WriteLine(ans[temp]);
+                temp = 0;
+            }
+            
+        }
+    }
+}
